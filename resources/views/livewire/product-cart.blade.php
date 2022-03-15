@@ -88,6 +88,10 @@
         <div class="col-md-4">
             <div class="table-responsive">
                 <table class="table table-striped">
+                <tr>
+                        <th>Customer Balance </th>
+                        <td id="cb">000</td>
+                    </tr>
                     <tr>
                         <th>Order Tax ({{ $global_tax }}%)</th>
                         <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>

@@ -1,3 +1,7 @@
+<?php
+use Modules\People\Entities\Customer;
+$customers = Customer::all()
+?>
 @extends('layouts.app')
 
 @section('title', 'Create Sale')
@@ -37,8 +41,9 @@
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="customer_id">Customer <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="customer_id" id="customer_id" required>
-                                                @foreach(\Modules\People\Entities\Customer::all() as $customer)
+                                            <select  class="form-control" name="customer_id" id="customer_id" required>
+                                                <option value="nan"> </option>
+                                                @foreach($customers as $customer)
                                                     <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                                 @endforeach
                                             </select>
@@ -134,6 +139,23 @@
                 var paid_amount = $('#paid_amount').maskMoney('unmasked')[0];
                 $('#paid_amount').val(paid_amount);
             });
+
+            $('#customer_id').change(function(){
+                var id = $(this).val();
+                if(id !== null && id !== 'nan'){
+                    var customers = '<?=$customers?>'
+                    var customersData = JSON.parse(customers)
+                    customersData.map((index)=>{
+                        if(id == index.id){
+                            $('#cb').html(index.customer_balance)
+                           // alert()
+                        }
+                    })
+                    console.log(customersData[0])
+
+                }
+
+            })
         });
     </script>
 @endpush
